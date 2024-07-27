@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>設定ページ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+</head>
+<body>
+    <div class="container">
+        <h1>設定ページ</h1>
+        <form method="POST" action="/add">
+            <input type="text" name="title" id="title" placeholder="Add">
+            <input type="number" name="times" id="times" placeholder="times">
+            <button type="submit">Add</button>
+        </form>
+            
+        <ul>
+            {% for sub in subjects %}
+            <li>
+                <div>
+                    全 {{sub.times}} 回
+                    {{sub.title}}
+                    (受講済み: {{sub.cnt}} 回)
+                </div>
+                <div>
+                    <form method="POST" action="/setting/delete/{{sub.id}}">
+                        <button type="submit">削除</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{{url_for('home')}}">ホーム</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>app</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+</head>
+<body>
+    <div class="container">
+        <h1>講義</h1>
+        <ul>
+            {% for sub in subjects %}
+            <li>
+                <div>
+                    全 {{sub.times}} 回
+                    {{sub.title}}
+                    (受講済み: {{sub.cnt}} 回)
+                </div>
+                <div>
+                    <form method="POST" action="/do/{{sub.id}}">
+                        <button type="submit">受講済み</button>
+                    </form>
+                    <form method="POST" action="/undo/{{sub.id}}">
+                        <button type="submit">取り消し</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{{url_for('setting')}}">設定</a>
+    </div>
+</body>
+</html>
